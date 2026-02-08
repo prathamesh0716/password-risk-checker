@@ -2,30 +2,44 @@
 <html>
 <head>
     <title>Password Risk Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
+<div class="container">
     <h2>Password Risk Checker</h2>
+
+    <div class="subtitle">
+        Analyze password strength & security risks
+    </div>
 
     <form method="POST">
         <input type="password" name="password" placeholder="Enter password" required>
-        <br><br>
         <button type="submit">Check Password</button>
     </form>
 
     {% if result %}
-        <h3>Result</h3>
+    <div class="result">
         <p><strong>Risk Level:</strong> {{ result.level }}</p>
         <p><strong>Risk Score:</strong> {{ result.score }}</p>
 
         {% if result.issues %}
-            <ul>
-                {% for issue in result.issues %}
-                    <li>{{ issue }}</li>
-                {% endfor %}
-            </ul>
+        <ul>
+            {% for issue in result.issues %}
+            <li>{{ issue }}</li>
+            {% endfor %}
+        </ul>
         {% else %}
-            <p>Strong password. No major issues found.</p>
+        <p>Strong password. No major issues found.</p>
         {% endif %}
+    </div>
     {% endif %}
+
+    <div class="disclaimer">
+        This tool does not store or transmit passwords.  
+        Passwords are analyzed temporarily for security awareness only.
+    </div>
+</div>
+
 </body>
 </html>
